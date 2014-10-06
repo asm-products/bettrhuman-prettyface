@@ -8,6 +8,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
@@ -528,6 +529,19 @@ module.exports = function ( grunt ) {
           livereload: false
         }
       }
+    },
+    /**
+    * Server config
+    */
+    connect: {
+      server: {
+        options: {
+          port: '<%= server.port %>',
+          hostname: '<%= server.hostname %>',
+          base: './<%= build_dir %>',
+          open: true
+        }
+      }
     }
   };
 
@@ -541,7 +555,7 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'connect', 'delta' ] );
 
   /**
    * The default task is to build and compile.

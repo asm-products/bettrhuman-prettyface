@@ -12,7 +12,7 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'bettrhuman.home', [
+angular.module( 'bettrhuman.review', [
   'ui.router',
   'plusOne'
 ])
@@ -23,12 +23,12 @@ angular.module( 'bettrhuman.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
+  $stateProvider.state( 'review', {
+    url: '/review',
     views: {
       "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        controller: 'ReviewCtrl',
+        templateUrl: 'review/review.tpl.html'
       }
     },
     data:{ pageTitle: 'Home' }
@@ -38,7 +38,7 @@ angular.module( 'bettrhuman.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
+.controller( 'ReviewCtrl', function ReviewCtrl( $scope ) {
 })
 
 ;

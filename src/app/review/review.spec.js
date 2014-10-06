@@ -4,8 +4,8 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
-describe( 'home section', function() {
-  beforeEach( module( 'bettrhuman.home' ) );
+describe( 'review section', function() {
+  beforeEach( module( 'bettrhuman.review' ) );
 
   it( 'should have a dummy test', inject( function() {
     expect( true ).toBeTruthy();
