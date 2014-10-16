@@ -2,6 +2,7 @@ angular.module( 'bettrhuman', [
   'templates-app',
   'templates-common',
   'bettrhuman.home',
+  'bettrhuman.search',
   'ui.router'
 ])
 
@@ -21,4 +22,3 @@ angular.module( 'bettrhuman', [
 })
 
 ;
-

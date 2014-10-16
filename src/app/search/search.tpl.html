@@ -1,0 +1,11 @@
+<div ng-controller="SearchCtrl">
+  <input type='text' placeholder='search for someone...' ng-model='searchName'></input>
+  <button ng-click='facebookUserSearch()'>Search.</button>
+
+  <ul>
+    <li ng-repeat='searchResult in searchResults'>
+      <img src="{{searchResult.image}}"/>
+      <a href="{{searchResult.profile}}">{{searchResult.name}}</a>
+    </li>
+  </ul>
+</div>

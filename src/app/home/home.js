@@ -40,7 +40,8 @@ angular.module( 'bettrhuman.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, facebookLogin, facebookSearch, googleLogin ) {
+.controller( 'HomeCtrl', function HomeController( $scope, facebookLogin, googleLogin  ) {
+
 
   facebookLogin.login(function(response) {
     console.log(response);
@@ -55,34 +56,5 @@ angular.module( 'bettrhuman.home', [
      console.log('User cancelled login or did not fully authorize.');
     }
   });
-
-  $scope.searchResults = [];
-
-  function mapFacebookSearchResults(fbResult) {
-    console.log("Mapping result...");
-    var searchResult = {
-      name : fbResult.name,
-      profile : 'https://www.facebook.com/app_scoped_user_id/'+ fbResult.id +'/',
-      image: 'https://graph.facebook.com/v2.1/' + fbResult.id + '/picture'
-    };
-    return searchResult;
-  }
-
-  $scope.facebookUserSearch = function() {
-    console.log("Search for", $scope.searchName);
-    facebookSearch.graphSearch($scope.searchName, function(response) {
-      console.log(response);
-      var fbResults = response.data.slice(0,10);
-
-      $scope.searchResults = fbResults.map(mapFacebookSearchResults);
-
-      $scope.$apply();
-      //
-      // FB.api('/'+$scope.tenFbResults[0].id+'/picture', function(response) {
-      //   console.log(response);
-      // });
-    });
-  };
-
 
 });
