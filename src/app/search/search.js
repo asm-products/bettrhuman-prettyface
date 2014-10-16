@@ -5,8 +5,12 @@ angular.module( 'bettrhuman.search', [
   'bhFacebook'
 ])
 
-.controller( 'SearchCtrl', function SearchCtrl( $scope, facebookSearch ) {
+.controller( 'SearchCtrl', function SearchCtrl( $scope, facebookSearch, humanSvc) {
 
+  $scope.goToProfile = function(fbId) {
+    console.log("go to profile", fbId);
+
+  };
 
   $scope.searchResults = [];
 
@@ -14,7 +18,7 @@ angular.module( 'bettrhuman.search', [
     console.log("Mapping result...");
     var searchResult = {
       name : fbResult.name,
-      profile : 'https://www.facebook.com/app_scoped_user_id/'+ fbResult.id +'/',
+      profile : fbResult.id,
       image: 'https://graph.facebook.com/v2.1/' + fbResult.id + '/picture'
     };
     return searchResult;
@@ -29,10 +33,6 @@ angular.module( 'bettrhuman.search', [
       $scope.searchResults = fbResults.map(mapFacebookSearchResults);
 
       $scope.$apply();
-      //
-      // FB.api('/'+$scope.tenFbResults[0].id+'/picture', function(response) {
-      //   console.log(response);
-      // });
     });
   };
 
