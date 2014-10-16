@@ -1,7 +1,7 @@
 /**
  * Each section of the site has its own module. It probably also has
  * submodules, though this boilerplate is too simple to demonstrate it. Within
- * `src/app/home`, however, could exist several additional folders representing
+ * `src/app/home`, howeveould exist several additional folders representing
  * additional modules that would then be listed as dependencies of this one.
  * For example, a `note` section could have the submodules `note.create`,
  * `note.delete`, `note.edit`, etc.
@@ -14,7 +14,9 @@
  */
 angular.module( 'bettrhuman.home', [
   'ui.router',
-  'plusOne'
+  'plusOne',
+  'bhGoogle',
+  'bhFacebook'
 ])
 
 /**
@@ -38,8 +40,33 @@ angular.module( 'bettrhuman.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope ) {
-})
+.controller( 'HomeCtrl', function HomeController( $scope, facebookLogin, facebookSearch, googleLogin ) {
 
-;
+  facebookLogin.login(function(response) {
+    console.log(response);
+    facebookToken = response.authResponse.accessToken;
+    if (response.authResponse) {
+     console.log("Facebook token", facebookToken);
+    //  console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', function(response) {
+        console.log('Good to see you, ', response);
+      });
+    } else {
+     console.log('User cancelled login or did not fully authorize.');
+    }
+  });
 
+  $scope.facebookUserSearch = function() {
+    console.log("Search for", $scope.searchName);
+    facebookSearch.graphSearch($scope.searchName, function(response) {
+      console.log(response);
+      $scope.tenFbResults = response.data.slice(0,10);
+      $scope.$apply();
+
+      FB.api('/'+$scope.tenFbResults[0].id+'/picture', function(response) {
+        console.log(response);
+      });
+    });
+  };
+
+});
