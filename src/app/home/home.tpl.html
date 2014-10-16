@@ -3,8 +3,9 @@
   <button ng-click='facebookUserSearch()'>Search.</button>
 
   <ul>
-    <li ng-repeat='fbUser in tenFbResults'>
-      <a href="https://www.facebook.com/app_scoped_user_id/{{fbUser.id}}/">{{fbUser.name}}</a>
+    <li ng-repeat='searchResult in searchResults'>
+      <img src="{{searchResult.image}}"/>
+      <a href="{{searchResult.profile}}">{{searchResult.name}}</a>
     </li>
   </ul>
 </div>

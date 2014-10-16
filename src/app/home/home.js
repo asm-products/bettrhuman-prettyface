@@ -47,26 +47,42 @@ angular.module( 'bettrhuman.home', [
     facebookToken = response.authResponse.accessToken;
     if (response.authResponse) {
      console.log("Facebook token", facebookToken);
-    //  console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function(response) {
-        console.log('Good to see you, ', response);
-      });
+      // console.log('Welcome!  Fetching your information.... ');
+      // FB.api('/me', function(response) {
+      //   console.log('Good to see you, ', response);
+      // });
     } else {
      console.log('User cancelled login or did not fully authorize.');
     }
   });
 
+  $scope.searchResults = [];
+
+  function mapFacebookSearchResults(fbResult) {
+    console.log("Mapping result...");
+    var searchResult = {
+      name : fbResult.name,
+      profile : 'https://www.facebook.com/app_scoped_user_id/'+ fbResult.id +'/',
+      image: 'https://graph.facebook.com/v2.1/' + fbResult.id + '/picture'
+    };
+    return searchResult;
+  }
+
   $scope.facebookUserSearch = function() {
     console.log("Search for", $scope.searchName);
     facebookSearch.graphSearch($scope.searchName, function(response) {
       console.log(response);
-      $scope.tenFbResults = response.data.slice(0,10);
-      $scope.$apply();
+      var fbResults = response.data.slice(0,10);
 
-      FB.api('/'+$scope.tenFbResults[0].id+'/picture', function(response) {
-        console.log(response);
-      });
+      $scope.searchResults = fbResults.map(mapFacebookSearchResults);
+
+      $scope.$apply();
+      //
+      // FB.api('/'+$scope.tenFbResults[0].id+'/picture', function(response) {
+      //   console.log(response);
+      // });
     });
   };
+
 
 });
