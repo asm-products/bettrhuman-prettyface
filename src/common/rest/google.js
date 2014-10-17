@@ -17,4 +17,15 @@ bhGoogle.service('humanSvc', [function() {
     console.log("login response", data);
   });
 
+  this.getUser = function(fbUserId, callback) {
+    var req = {
+      fbAccessToken:facebookToken,
+      resource: {
+          facebookUserId:fbUserId
+        }
+      };
+
+    gapi.client.humans.getUser(req).execute(callback);
+  };
+
 }]);

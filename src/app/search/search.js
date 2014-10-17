@@ -9,7 +9,9 @@ angular.module( 'bettrhuman.search', [
 
   $scope.goToProfile = function(fbId) {
     console.log("go to profile", fbId);
-
+    humanSvc.getUser(fbId, function(data) {
+      console.log("Bettrhuman:", data);
+    });
   };
 
   $scope.searchResults = [];
